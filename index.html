@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <title>領我回家 Take me home</title>
+  <!-- Favicons -->
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.2.4/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.2.4/assets/owl.theme.default.min.css">
+  <link rel="stylesheet" href="plugin/custom.css">
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.2.4/owl.carousel.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-baseline align-items-md-center py-2 px-3 px-lg-5 fixed-top" id="header">
+      <div class="d-flex justify-content-between" id="topbarnd">
+        <a href="index.html" class="brand d-flex align-items-start align-items-md-center">
+          <img src="img/00cat-256.png" width="50px" alt="logo" class="p-2">
+          <span class="m-0 py-2 font-weight-bolder c-g-4">帶我回家 <span class="c-p-5">Take</span><span class="c-p-8">Me</span><span class="c-p-5">Home</span></span>
+        </a>
+        <div class="d-flex d-md-none" aria-label="切換導航欄" id="nav-toggle">
+          <div class="toggle-line-1"></div>
+          <div class="toggle-line-2"></div>
+          <div class="toggle-line-3"></div>
+        </div>  
+      </div>
+      <ul class="nav flex-column flex-md-row justify-content-md-end">
+        <li class="nav-item">
+          <a class="nav-link active" href="index.html">回首頁</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#cats">待認養貓咪</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#shelter">收容所查詢</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contact">聯絡站長</a>
+        </li>
+      </ul>
+    </div>
+    <script> // 控制導覽列 寬螢幕在上方，小螢幕縮為toggle
+      $("#nav-toggle").on("click",(event)=>{
+        var item = event.currentTarget;
+        console.log("OOO")
+        $(".nav").toggle();
+        if (item.classList.contains("act")){
+          $("#nav-toggle").removeClass("act")
+          $(".toggle-line-2").toggle().fadeIn();
+          $(".toggle-line-1").removeClass("toggle-line-first")
+          $(".toggle-line-3").removeClass("toggle-line-last")
+        }
+        else{
+          console.log("XXX")
+          $("#nav-toggle").addClass("act")
+          $(".toggle-line-2").toggle();
+          $(".toggle-line-1").addClass("toggle-line-first")
+          $(".toggle-line-3").addClass("toggle-line-last")
+        }
+        mainMargin()
+      })
+    </script>
+  </header>
+
+
+  <main>
+    <script> // 隨header高度，調整main的位置
+      mainMargin()
+
+      function mainMargin(){
+        $("main").css("margin-top",$("#header").outerHeight(true))
+      }
+
+      function debounce(fn, wait) {
+            var timeout = null;
+            return function() {
+                if(timeout !== null)
+                    clearTimeout(timeout);
+                timeout = setTimeout(fn, wait);
+            }
+      }
+
+      window.addEventListener('resize', debounce(mainMargin, 100));
+    </script>
+    <div id="banner">
+    </div>
+
+    <div id="cats">
+      <div class="container py-4">
+        <!-- <div class="row">
+          有照片
+        </div> -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4" id="newCats">
+          <!-- 主要card 範例 -->
+          <div class="col mb-4">
+            <div type="button" class="card" data-toggle="modal" data-target="#exampleModal" onclick="addCatModal(1)">
+              <img src="img/cats/1560052126894.jpeg" class="card-img-top">
+              <div class="card-body">
+                <h5 class="card-title"><span class="colour">虎斑色</span><span class="sex">公貓</span></h5>
+                <p class="card-text"><span class="age">成貓</span><span class="id">F123412312</span></p>
+                <p class="card-text">發現地點：<span>南勢角路邊</span></p>
+                <p class="card-text">目前位置：<span>新店綠中海</span></p>
+              </div>
+            </div>
+          </div>
+          <!-- 主要card 範例 -->        
+        </div>
+        <script>
+          function addCatModal(id){
+            let url =`https://agridata.coa.gov.tw/api/v1/AnimalRecognition/?animal_id=${id}&%24top=1000&Page=1`;
+            let remark="";
+            $.getJSON(url)
+            .done((re)=>{
+              // console.log(re.Data[0]);
+              let e=re.Data[0];
+              if (e.animal_bodytype=="SMALL") e.animal_bodytype='小型';
+              if (e.animal_bodytype=="MEDIUM") e.animal_bodytype='中型';
+              if (e.animal_age=="ADULT") e.animal_age='成貓';
+              if (e.animal_age=="CHILD") e.animal_age='幼貓';
+              if (e.animal_sex=="F") e.animal_sex="母";
+              if (e.animal_sex=="M") e.animal_sex="公";
+              if (e.animal_sex=="N") e.animal_sex="(不確定性別)";
+              if (e.animal_remark!=""){remark=`<p class="p2 text-danger">${e.animal_remark}</p>`};
+              let html=
+                `<div class="modal fade" id="Modal${id}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel${id}" aria-hidden="true" style="padding-right:0">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header text-center">
+                        <div class="modal-title" id="ModalLabel${id}">
+                          <div class="d-inline-block font-weight-bolder h4 m-0">${e.animal_colour}${e.animal_sex}${e.animal_kind}</div>&nbsp&nbsp&nbsp&nbsp
+                          <div class="d-inline-block text-grey">${e.animal_bodytype}${e.animal_age}</div>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <img class="card-img" src="${e.album_file}">
+                        <p class="p0">ID:${e.animal_id}</p>
+                        <p class="p1">發現地點：${e.animal_foundplace}</p>
+                        ${remark}
+                      </div>
+                      <div class="modal-footer">
+                        <p>目前位置：${e.shelter_name}</p>
+                        <p>地址：${e.shelter_address}</p>
+                        <p>電話：${e.shelter_tel}</p>
+                        <p>開放認養日：${e.shelter_tel}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>`;
+              $(html).appendTo("#catModal");
+              $(`#Modal${id}`).modal('show')
+            })
+            .fail(()=>{alert("資料來源異常，無法正常取得資料")})
+            }
+        </script>
+        <!-- Modal -->
+        <div class="row justify-content-center align-items-center" id="catModal">
+        </div>        
+        <!-- Modal  -->
+      </div>
+    </div>
+
+    <div id="shelter">
+    </div>
+
+    <div id="contact">
+    </div>
+
+    <!-- 抓取API資料 -->
+    <script>
+      let nw = new Date();
+      let nwYear = nw.getFullYear();
+      let nwMonth = nw.getMonth()+1;
+      let nwDate = nw.getDate();
+      let qtyCatCard=$("#newCats").children().length;
+
+      function padLeft(num) { // 補0 至num位
+        return num.toString().padStart(2, '0');
+      }
+
+      function newCatCard(qty,page) { // 一次生成 qty 貓咪卡片，且顯示qty卡片，第page頁
+        console.log(qty,page)
+        let Mn = padLeft(nwMonth); // 從最新的month開始抓資料
+        let Dt = padLeft(nwDate); // 從最新的date開始抓資料
+        $.ajax({
+          url: "api/api_CURL.php",
+          method: "get",
+          data: {
+            "top":20,
+            "skip":0+20*(page-1),
+            "animal_createtime":nwYear+"/"+Mn+"/"+Dt,},
+          dataType: "json",
+          success: function(re){
+            if (re.length == 0) {
+              console.log(nwYear+"/"+Mn+"/"+Dt,"no data")
+              nwDate--; // 從最近的日期沒資料，就往前一天抓
+              newCatCard(qty,page);
+            } else {
+              console.log(re)
+              re.forEach(e => {
+                if(e.album_file!=""){ // 只抓 有照片 的資料
+                  qtyCatCard++;
+                  if (e.animal_age=="ADULT") e.animal_age='成貓';
+                  if (e.animal_age=="CHILD") e.animal_age='幼貓';
+                  if (e.animal_sex=="F") e.animal_sex="母";
+                  if (e.animal_sex=="M") e.animal_sex="公";
+                  if (e.animal_sex=="N") e.animal_sex="(不確定性別)";
+                  html=`<div class="col mb-4" style="display:none">
+                          <div class="card" onclick="addCatModal(${e.animal_id})" data-toggle="modal" data-target="#Modal${e.animal_id}">
+                            <img src="${e.album_file}" class="card-img-top">
+                            <div class="card-body">
+                              <div class="card-title"><span class="h5 font-weight-bolder">${e.animal_colour}${e.animal_sex}${e.animal_kind}</span><span class="text-warning">${e.animal_age} ${e.animal_id}</span></div>
+                              <p class="card-text">發現地點：<span>${e.animal_foundplace.substr(0,6)}...</span></p>
+                              <p class="card-text">目前位置：<span>${e.shelter_name.substr(0,6)}...</span></p>
+                              <p class="card-text">資料建立時間：<span>${e.animal_createtime}</span></p>
+                            </div>
+                          </div>
+                        </div>`;
+                  $(html).appendTo('#newCats');
+                  console.log(e.animal_id,e.animal_createtime,qtyCatCard);
+                }
+                else{
+                  console.log(e.animal_id,"no pic",qtyCatCard);
+                }
+              })
+              console.log(qtyCatCard,qty,nwYear+"/"+Mn+"/"+Dt)
+              if(qtyCatCard<qty){
+                nwDate--;
+                newCatCard(qty,page)
+              }
+              showCatCard(qty)
+            }
+          }
+        })
+      }
+
+      function showCatCard(qty){
+        for (let i = 0; i < qty; i++) {
+          $("#newCats").children().eq(i).show();
+        }
+      }
+
+      newCatCard(12,1) // 先抓12筆資料 為初始資料
+      showCatCard(12)
+    </script>
+
+
+  </main>
+
+  <footer>
+  </footer>
+</body>
+
+</html>
