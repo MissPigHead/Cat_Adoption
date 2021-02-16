@@ -85,6 +85,7 @@ body {
   font-family: "Helvetica", "Arial","LiHei Pro","黑體-繁","微軟正黑體", 'Noto Sans TC', sans-serif;
   background: var(--yellow03);
   color: var(--grey05);
+  cursor: pointer;
 }
 
 
@@ -108,11 +109,11 @@ body {
   color: var(--orange02);
 }
 
-#header{
+#header,#footer{
   background: var(--yellow01);
 }
 
-#header a:hover{
+#header a:hover,#footer a:hover{
   text-decoration: none;
 }
 
@@ -162,11 +163,43 @@ body {
 }
 
 
-.card{
-  margin:0 20px;
+.topic{
+  font-size: 2rem;
+  font-weight: bolder;
+  color: var(--purple05);
 }
+
+.card{
+  margin:0 auto;
+  max-width: 400px;
+}
+
 .card:hover{
-  transform: scale(1.05);
+  transform: scale(1.03);
+  border: 3px solid var(--orange01);
+}
+
+.card:hover::after{
+  content: "點擊看細節";
+  color: var(--blue03);
+  font-weight: bolder;
+  font-size: 0.8rem;
+  text-align: center;
+  line-height: 70px;
+  height: 70px;
+  width: 70px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--pink01);
+  border: 2px solid var(--pink09);
+  border-radius: 50%;
+  box-sizing: content-box;
+  animation: shine 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+}
+@keyframes shine{
+  0%,100%{opacity:1;}
+  96%{opacity:0;}
 }
 
 .card-title{
@@ -178,7 +211,7 @@ body {
 }
 
 .card>img{
-    height: 400px;
+    height: 300px;
     overflow: hidden;
     object-fit: cover;
     object-position: 50% 50%;
@@ -237,6 +270,12 @@ button.close>span{
   margin: 3px;
 }
 
+#footer>div>p{
+  font-size: 0.6rem;
+  line-height: 0.6rem;
+  padding: 0.3rem 0;
+  margin: 0;
+}
 @media(min-width:576px) {
   .brand{
     font-size: 1.8rem;
@@ -246,8 +285,22 @@ button.close>span{
     margin:0;
   }
   .card>img{
-    height: 320px;
+    height: 280px;
   }
+  #footer{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+  }
+  main{
+    margin-bottom: 56px;
+  }
+  #footer>div>p{
+    font-size: 12px;
+    line-height: 12px;
+  }  
 }
 
 @media (min-width: 768px) {

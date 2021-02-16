@@ -4,9 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-  <title>領我回家 Take me home</title>
+  <meta content="流浪貓咪認養平台，提供公立收容所貓咪資料，以及收容所聯絡方式，可參考照片後直接聯繫、認養" name="description">
+  <meta content="cat adoption, 貓咪領養, 流浪貓, 流浪動物之家" name="keywords">
+  <title>領我回家 Take me home | 流浪貓認養平台</title>
   <!-- Favicons -->
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 
@@ -21,9 +21,20 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.2.4/assets/owl.theme.default.min.css">
   <link rel="stylesheet" href="plugin/custom.css">
 
+  <!-- script -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.2.4/owl.carousel.min.js"></script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y10Y0E0PG5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-Y10Y0E0PG5');
+  </script>
 </head>
 
 <body>
@@ -32,7 +43,7 @@
       <div class="d-flex justify-content-between" id="topbarnd">
         <a href="index.html" class="brand d-flex align-items-start align-items-md-center">
           <img src="img/00cat-256.png" width="50px" alt="logo" class="p-2">
-          <span class="m-0 py-2 font-weight-bolder c-g-4">帶我回家 <span class="c-p-5">Take</span><span class="c-p-8">Me</span><span class="c-p-5">Home</span></span>
+          <span class="m-0 py-2 font-weight-bolder c-g-4">領我回家 <span class="c-p-5">Take</span><span class="c-p-8">Me</span><span class="c-p-5">Home</span></span>
         </a>
         <div class="d-flex d-md-none" aria-label="切換導航欄" id="nav-toggle">
           <div class="toggle-line-1"></div>
@@ -102,13 +113,14 @@
     </div>
 
     <div id="cats">
-      <div class="container py-4">
+      <div class="container py-3">
         <!-- <div class="row">
           有照片
         </div> -->
+        <div class="row justify-content-center my-3 topic">最新收容貓咪</div>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4" id="newCats">
-          <!-- 主要card 範例 -->
-          <div class="col mb-4">
+          <!-- 主要card code範例 -->
+          <!-- <div class="col mb-4">
             <div type="button" class="card" data-toggle="modal" data-target="#exampleModal" onclick="addCatModal(1)">
               <img src="img/cats/1560052126894.jpeg" class="card-img-top">
               <div class="card-body">
@@ -118,10 +130,10 @@
                 <p class="card-text">目前位置：<span>新店綠中海</span></p>
               </div>
             </div>
-          </div>
-          <!-- 主要card 範例 -->        
+          </div> -->
+          <!-- 主要card code範例 -->        
         </div>
-        <script>
+        <script> // 點擊card 出現貓咪細節資料
           function addCatModal(id){
             let url =`https://agridata.coa.gov.tw/api/v1/AnimalRecognition/?animal_id=${id}&%24top=1000&Page=1`;
             let remark="";
@@ -129,6 +141,7 @@
             .done((re)=>{
               // console.log(re.Data[0]);
               let e=re.Data[0];
+              if (e.animal_remark!=""){remark=`<p class="p2 text-danger">${e.animal_remark}</p>`};
               if (e.animal_bodytype=="SMALL") e.animal_bodytype='小型';
               if (e.animal_bodytype=="MEDIUM") e.animal_bodytype='中型';
               if (e.animal_age=="ADULT") e.animal_age='成貓';
@@ -136,7 +149,7 @@
               if (e.animal_sex=="F") e.animal_sex="母";
               if (e.animal_sex=="M") e.animal_sex="公";
               if (e.animal_sex=="N") e.animal_sex="(不確定性別)";
-              if (e.animal_remark!=""){remark=`<p class="p2 text-danger">${e.animal_remark}</p>`};
+              if (e.animal_opendate=="") e.animal_opendate="待開放"
               let html=
                 `<div class="modal fade" id="Modal${id}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel${id}" aria-hidden="true" style="padding-right:0">
                   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -160,7 +173,7 @@
                         <p>目前位置：${e.shelter_name}</p>
                         <p>地址：${e.shelter_address}</p>
                         <p>電話：${e.shelter_tel}</p>
-                        <p>開放認養日：${e.shelter_tel}</p>
+                        <p>開放認養日：${e.animal_opendate}</p>
                       </div>
                     </div>
                   </div>
@@ -185,7 +198,7 @@
     </div>
 
     <!-- 抓取API資料 -->
-    <script>
+    <script> // 先抓12筆，後續擴充功能，再增加 【看看更多貓咪】按鈕，load更多資料
       let nw = new Date();
       let nwYear = nw.getFullYear();
       let nwMonth = nw.getMonth()+1;
@@ -197,7 +210,6 @@
       }
 
       function newCatCard(qty,page) { // 一次生成 qty 貓咪卡片，且顯示qty卡片，第page頁
-        console.log(qty,page)
         let Mn = padLeft(nwMonth); // 從最新的month開始抓資料
         let Dt = padLeft(nwDate); // 從最新的date開始抓資料
         $.ajax({
@@ -222,12 +234,12 @@
                   if (e.animal_age=="CHILD") e.animal_age='幼貓';
                   if (e.animal_sex=="F") e.animal_sex="母";
                   if (e.animal_sex=="M") e.animal_sex="公";
-                  if (e.animal_sex=="N") e.animal_sex="(不確定性別)";
+                  if (e.animal_sex=="N") e.animal_sex="(?)";
                   html=`<div class="col mb-4" style="display:none">
                           <div class="card" onclick="addCatModal(${e.animal_id})" data-toggle="modal" data-target="#Modal${e.animal_id}">
                             <img src="${e.album_file}" class="card-img-top">
                             <div class="card-body">
-                              <div class="card-title"><span class="h5 font-weight-bolder">${e.animal_colour}${e.animal_sex}${e.animal_kind}</span><span class="text-warning">${e.animal_age} ${e.animal_id}</span></div>
+                              <div class="card-title"><span class="h5 font-weight-bolder">${e.animal_colour.substr(0,3)}${e.animal_sex}${e.animal_kind}</span><span class="text-warning">${e.animal_age} ${e.animal_id}</span></div>
                               <p class="card-text">發現地點：<span>${e.animal_foundplace.substr(0,6)}...</span></p>
                               <p class="card-text">目前位置：<span>${e.shelter_name.substr(0,6)}...</span></p>
                               <p class="card-text">資料建立時間：<span>${e.animal_createtime}</span></p>
@@ -246,27 +258,37 @@
                 nwDate--;
                 newCatCard(qty,page)
               }
-              showCatCard(qty)
             }
           }
+        }).then(() => {
+        showCatCard(qty)
         })
       }
-
       function showCatCard(qty){
         for (let i = 0; i < qty; i++) {
           $("#newCats").children().eq(i).show();
         }
       }
 
-      newCatCard(12,1) // 先抓12筆資料 為初始資料
-      showCatCard(12)
+      newCatCard(12,1)
     </script>
 
 
   </main>
 
   <footer>
+    <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between align-items-center px-4 py-2" id="footer">
+        <div>
+          <a href="index.html" class="d-flex align-items-center">
+            <img src="img/00cat-256.png" width="35px" alt="logo" class="p-2">
+            <span class="m-0 py-2 font-weight-bolder c-g-4">領我回家 <span class="c-p-5">Take</span><span class="c-p-8">Me</span><span class="c-p-5">Home</span></span>
+          </a>  
+        </div>
+        <div class="d-flex flex-column align-items-center align-items-sm-end">
+          <p class="col text-center text-sm-right">綾凌設計|版權所有</p>
+          <p class="col">&copy; 2020 &nbsp;<strong>Lingling Chang</strong>. All rights reserved.</p>
+        </div>
+    </div>
   </footer>
 </body>
-
 </html>
