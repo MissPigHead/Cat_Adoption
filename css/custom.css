@@ -32,8 +32,9 @@ font-family: 'Kavoon', cursive; */
   --grey03: #5a5562;
   --grey04: #454151;
   --grey05: #343a40;
-  --green01: #d4dccd;
-  --green02: #d8e2dc;
+  --green01: #f7fff0;
+  --green02: #dff5e7;
+  --green03: #a7e9c1;
   --purple01: #9c89b8;
   --purple02: #7E66A3;
   --purple03: #614D80;
@@ -83,12 +84,14 @@ body {
 }
 
 body {
-  font-family: "Helvetica", "Arial","LiHei Pro","微軟正黑體", 'Noto Sans TC', sans-serif;
+  font-family: Helvetica, Arial,"Apple LiGothic Medium","Microsoft JhengHei","Noto Sans TC", sans-serif;
   background: var(--yellow03);
   color: var(--grey05);
-  cursor: pointer;
 }
 
+a{
+  cursor: pointer;
+}
 
 .c-r-1{
   color:var(--red01);
@@ -223,6 +226,7 @@ body {
 .card{
   margin:0 auto;
   max-width: 400px;
+  cursor: pointer;
 }
 
 .card:hover{
@@ -231,25 +235,24 @@ body {
 }
 .card:hover::before{
   content: " ";
-  width:120px;
-  height:160px;
-  top:150px;
+  width:80px;
+  height:102px;
+  top:200px;
   left:50%;
   transform: translateX(-50%);
   position: absolute;
-  background-image: url(../img/paw.png);
+  background-image: url(../img/paw_80.png);
   animation: shine 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
 }
-
 .card:hover::after{
   content: "點擊看細節";
   color: var(--pink09);
   font-weight: bolder;
   font-size: 0.8rem;
   text-align: center;
-  line-height: 50px;
+  line-height: 20px;
   position: absolute;
-  top: 250px;
+  top: 300px;
   left:50%;
   transform: translateX(-50%);
   animation: shine 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
@@ -346,6 +349,65 @@ button.close>span{
 }
 
 
+.shelterT{
+  position: relative;
+}
+.shelterT::before{
+  position: absolute;
+  content: " ";
+  width: 200px;
+  height: 22px;
+  bottom: 0px;
+  background: var(--green03);
+  transform: skew(-30deg);
+}
+.shelterT::after{
+  position: absolute;
+  content: " ";
+  width: 200px;
+  height: 22px;
+  bottom: 4px;
+
+  background: var(--green01);
+  transform: skew(-30deg);
+}
+.shelterT>span{
+  font-size: 1.5rem;
+  font-weight: bolder;
+  color: var(--orange01);
+  z-index: 101;
+}
+
+
+#shelter td{
+  vertical-align: top;
+}
+#shelter table a{
+  color: var(--purple04);
+}
+#shelter table a:hover{
+  color: var(--purple01);
+  text-decoration: none;
+}
+
+#contact .social i {
+  font-size: 2rem;
+  color: var(--pink06);
+  line-height: 2.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  text-align: center;
+  background: var(--grey02);
+  margin: 0.2rem;
+}
+#contact .social i:hover {
+  color: var(--pink09);
+  background: #fff;
+  transform: scale(0.98);
+  box-shadow: 0 0 10px 0 ghostwhite;
+}
+
 #scrolltop.shown {
   opacity: 1;
 }
@@ -417,6 +479,15 @@ footer > .position-fixed > a {
   .card>img{
     height: 280px;
   }
+
+  .card:hover::before{
+    top:180px;
+  }
+
+  .card:hover::after{
+    top: 280px;
+  }
+
   #footer{
     position: fixed;
     right: 0;
@@ -426,6 +497,7 @@ footer > .position-fixed > a {
   }
   main{
     margin-bottom: 56px;
+    padding-bottom: 80px;
   }
   #footer>div>p{
     font-size: 12px;
