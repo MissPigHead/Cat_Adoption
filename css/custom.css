@@ -83,7 +83,7 @@ body {
 }
 
 body {
-  font-family: "Helvetica", "Arial","LiHei Pro","黑體-繁","微軟正黑體", 'Noto Sans TC', sans-serif;
+  font-family: "Helvetica", "Arial","LiHei Pro","微軟正黑體", 'Noto Sans TC', sans-serif;
   background: var(--yellow03);
   color: var(--grey05);
   cursor: pointer;
@@ -227,30 +227,36 @@ body {
 
 .card:hover{
   transform: scale(1.03);
-  border: 3px solid var(--orange01);
+  border: 3px solid var(--pink09);
+}
+.card:hover::before{
+  content: " ";
+  width:120px;
+  height:160px;
+  top:150px;
+  left:50%;
+  transform: translateX(-50%);
+  position: absolute;
+  background-image: url(../img/paw.png);
+  animation: shine 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
 }
 
 .card:hover::after{
   content: "點擊看細節";
-  color: var(--blue03);
+  color: var(--pink09);
   font-weight: bolder;
   font-size: 0.8rem;
   text-align: center;
-  line-height: 70px;
-  height: 70px;
-  width: 70px;
+  line-height: 50px;
   position: absolute;
-  top: 20px;
-  right: 20px;
-  background: var(--pink01);
-  border: 2px solid var(--pink09);
-  border-radius: 50%;
-  box-sizing: content-box;
+  top: 250px;
+  left:50%;
+  transform: translateX(-50%);
   animation: shine 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
 }
 @keyframes shine{
   0%,100%{opacity:1;}
-  96%{opacity:0;}
+  98%{opacity:0;}
 }
 
 .card-title{
@@ -323,7 +329,7 @@ button.close>span{
 #catModal .modal-footer>div{
   margin: 3px;
 }
-#cats button{
+#moreCats{
   font-size: 1.1rem;
   padding: 0 15px;
   height: 40px;
@@ -334,7 +340,7 @@ button.close>span{
   box-shadow: 2px 2px 0 2px var(--yellow06);
   /* transition: 1s ease-in; */
 }
-#cats button:hover{
+#moreCats:hover{
   font-size: 1.05rem;
   box-shadow: 2px 2px 0 2px var(--yellow06) inset;
 }
