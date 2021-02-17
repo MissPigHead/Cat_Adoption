@@ -53,6 +53,7 @@ font-family: 'Kavoon', cursive; */
   --yellow03:#fcefb4;
   --yellow04:#fae588;
   --yellow05:#f9dc5c;
+  --yellow06:#f0c020;
 }
 
 
@@ -89,6 +90,9 @@ body {
 }
 
 
+.c-r-1{
+  color:var(--red01);
+}
 .c-g-4{
   color:var(--grey04);
 }
@@ -98,15 +102,15 @@ body {
 .c-p-8{
   color: var(--pink08);
 }
-.nav-link{
-  padding: 0.5rem 0.6rem;
-}
 
 .c-o-1{
   color: var(--orange01);
 }
 .c-o-2{
   color: var(--orange02);
+}
+.nav-link{
+  padding: 0.5rem 0.6rem;
 }
 
 #header,#footer{
@@ -116,12 +120,21 @@ body {
 #header a:hover,#footer a:hover{
   text-decoration: none;
 }
+#header a.active{
+  position: relative;
+  color: var(--pink09);
+  background: var(--pink01);
+  border-radius: 5px;
+  transition: 1s ease-out;
+}
 
 #header ul>li a{
+  font-weight: bolder;
   color: var(--orange01);
+  transition: 1s ease-out;
 }
 #header ul>li a:hover{
-  color: var(--orange02);
+  color: var(--pink09);
 }
 .nav{
   display: none;
@@ -169,8 +182,8 @@ body {
 .topic::before{
   position: absolute;
   content: " ";
-  width: 260px;
-  height: 30px;
+  width: 280px;
+  height: 35px;
   bottom: -3px;
   background: var(--pink04);
   transform: skew(-30deg);
@@ -178,22 +191,31 @@ body {
 .topic::after{
   position: absolute;
   content: " ";
-  width: 260px;
-  height: 30px;
+  width: 280px;
+  height: 35px;
   bottom: 3px;
   margin: 0 auto;
   background: var(--yellow01);
   transform: skew(-30deg);
 }
 .topic>span{
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: bolder;
   color: var(--purple05);
   z-index: 100;
 }
 
-.owl-carousel~div>img{
-  height: 300px;
+#banner .typed1{
+  height: 25px;
+  max-height: 50px;
+  line-height: 25px;
+}
+
+#banner img{
+  height: 350px;
+  width: 100%;
+  border-radius: 5px;
+  padding: 0 15px;
   object-fit: cover;
   object-position: 50% 50%;
 }
@@ -301,6 +323,22 @@ button.close>span{
 #catModal .modal-footer>div{
   margin: 3px;
 }
+#cats button{
+  font-size: 1.1rem;
+  padding: 0 15px;
+  height: 40px;
+  line-height: 40px;
+  background: var(--yellow01);
+  border-radius: 20px;
+  border: 0;
+  box-shadow: 2px 2px 0 2px var(--yellow06);
+  /* transition: 1s ease-in; */
+}
+#cats button:hover{
+  font-size: 1.05rem;
+  box-shadow: 2px 2px 0 2px var(--yellow06) inset;
+}
+
 
 #scrolltop.shown {
   opacity: 1;
@@ -349,10 +387,23 @@ footer > .position-fixed > a {
   }
 }
 
+@media(max-width:400px) {
+  #banner .typed1{
+    font-size: 0.9rem;
+  }
+}
+
+
 @media(min-width:576px) {
   .brand{
     font-size: 1.8rem;
     font-weight: 700;
+  }
+  #banner .typed1{
+    font-size: 1.2rem;
+  }
+  #banner img{
+    height: 400px;
   }
   .card{
     margin:0;
@@ -377,6 +428,9 @@ footer > .position-fixed > a {
 }
 
 @media (min-width: 768px) {
+  #banner img{
+    height: 500px;
+  }
   .nav{
     display: flex !important;
   }

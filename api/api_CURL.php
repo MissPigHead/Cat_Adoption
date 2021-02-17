@@ -16,7 +16,8 @@ if(!empty($_GET['skip'])){
 if(!empty($_GET['animal_createtime'])){
     $url=$url."&animal_createtime=".$_GET['animal_createtime'];
 }
-// $url="https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL&%24top={$top}&%24skip={$skip}&animal_kind=%E8%B2%93";
+
+// echo $url;
 
 function load_contents($url)
 {
